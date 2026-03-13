@@ -334,6 +334,61 @@
   .check-table tr:nth-child(even) td { background: #fafcff; }
   .check-table select { min-width: 80px; }
 
+  /* AUDIO PLAYERS */
+  .audio-main {
+    background: linear-gradient(90deg, #1a2a4a 0%, #2471a3 100%);
+    border-radius: 12px;
+    padding: 14px 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .audio-main-label {
+    color: white;
+    font-weight: 700;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+  }
+  .audio-main audio {
+    flex: 1;
+    min-width: 200px;
+    height: 36px;
+    border-radius: 8px;
+  }
+  .audio-note {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.65);
+    width: 100%;
+    font-style: italic;
+  }
+  .person-audio {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .person-audio-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--accent2);
+    white-space: nowrap;
+  }
+  .person-card:nth-child(2) .person-audio-label { color: #8e44ad; }
+  .person-card:nth-child(3) .person-audio-label { color: #16a085; }
+  .person-card:nth-child(4) .person-audio-label { color: var(--accent); }
+  .person-audio audio {
+    height: 30px;
+    flex: 1;
+    min-width: 160px;
+    border-radius: 6px;
+  }
+
   /* scroll */
   html { scroll-behavior: smooth; }
   .toc { max-width: 820px; margin: 24px auto 0; padding: 0 20px; display: flex; gap: 10px; flex-wrap: wrap; }
@@ -366,23 +421,40 @@
 <!-- ========== READING ========== -->
 <div class="reading-box" id="reading">
   <div class="section-label">📖 Reading</div>
+
+  <!-- MAIN AUDIO: весь текст -->
+  <div class="audio-main">
+    <span class="audio-main-label">🔊 Listen to all four people</span>
+    <audio id="audio_all" controls>
+      <!-- Підвʼяжи файл на GitHub: src="audio/world_in_one_city_all.mp3" -->
+      <source src="audio/world_in_one_city_all.mp3" type="audio/mpeg">
+      Your browser does not support audio.
+    </audio>
+    <span class="audio-note">📁 GitHub: покласти файл у папку /audio/ → world_in_one_city_all.mp3</span>
+  </div>
+
   <div class="people-grid">
+
     <div class="person-card">
       <div class="person-name">Carlos 🇲🇽</div>
       <p>My name's Carlos. I'm from Mexico, but now I live in London. I live in north London and I work in a university in the centre. It takes thirty minutes by train. The job's great. I like my students and the money's OK.</p>
     </div>
+
     <div class="person-card">
       <div class="person-name">Jessica 🇦🇺</div>
       <p>My name's Jessica. I'm from Australia, but I'm a nurse here in London. My job's OK, but I don't like the hospital. It's big and I don't live near it. It's an hour by car from my house. The other nurses are nice, but I don't like some doctors.</p>
     </div>
+
     <div class="person-card">
       <div class="person-name">Rasa 🇱🇹</div>
       <p>My name's Rasa. I'm from Lithuania, but now I live and work in Tooting – an area in south London. I work in a coffee shop. It's OK. I like the people and the hours are good for me. I work from nine to three and then I go to university.</p>
     </div>
+
     <div class="person-card">
       <div class="person-name">Ali 🇹🇷</div>
       <p>My name's Ali. I'm from Turkey. I work for a taxi company. I don't like my job. London traffic is bad. The money is bad and I work a lot – 70 or 80 hours a week. I don't have time with my wife and two children.</p>
     </div>
+
   </div>
 </div>
 
