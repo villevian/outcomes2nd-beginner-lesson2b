@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>-ed / -ing Adjectives — B1 Homework</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #f7f6f2; --surface: #ffffff; --border: #e2ddd6; --border-hover: #c8c2b8;
+    --text: #1a1a18; --text-secondary: #6b6760; --text-tertiary: #9e9b96;
+    --green: #1D9E75; --green-light: #E1F5EE; --green-dark: #085041;
+    --amber: #BA7517; --amber-light: #FAEEDA; --amber-dark: #412402;
+    --red: #E24B4A; --purple: #534AB7; --purple-light: #EEEDFE; --purple-dark: #26215C;
+    --radius: 12px; --radius-sm: 8px;
+  }
+  body { font-family: 'Georgia', serif; font-size: 16px; line-height: 1.7; color: var(--text); background: var(--bg); min-height: 100vh; padding: 2rem 1rem 4rem; }
+  .page { max-width: 680px; margin: 0 auto; }
+
+  /* NAME GATE */
+  .name-gate { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; margin-bottom: 2rem; text-align: center; }
+  .name-gate h2 { font-size: 18px; font-weight: normal; margin-bottom: .5rem; }
+  .name-gate p { font-size: 14px; color: var(--text-secondary); margin-bottom: 1.25rem; }
+  .name-input-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .name-input-row input { font-family: 'Georgia', serif; font-size: 15px; padding: 8px 14px; border: 1px solid var(--border); border-radius: 8px; outline: none; width: 260px; background: var(--bg); color: var(--text); transition: border-color .15s; }
+  .name-input-row input:focus { border-color: var(--green); }
+  .start-btn { padding: 8px 24px; font-family: 'Georgia', serif; font-size: 15px; background: var(--green); color: #fff; border: none; border-radius: 8px; cursor: pointer; transition: background .15s; }
+  .start-btn:hover { background: var(--green-dark); }
+  .name-display { font-size: 14px; color: var(--text-secondary); margin-bottom: 1.5rem; }
+  .name-display strong { color: var(--green-dark); font-weight: 700; }
+
+  header { margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+  header h1 { font-size: 26px; font-weight: normal; letter-spacing: -0.02em; margin-bottom: 4px; }
+  header h1 em { font-style: italic; color: var(--green); }
+  .meta { font-size: 13px; color: var(--text-tertiary); font-family: 'Courier New', monospace; }
+
+  /* PROGRESS BAR */
+  .progress-wrap { margin-bottom: 1.5rem; }
+  .progress-label { font-size: 12px; color: var(--text-tertiary); font-family: 'Courier New', monospace; margin-bottom: 6px; display: flex; justify-content: space-between; }
+  .progress-track { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--green); border-radius: 3px; transition: width .4s ease; width: 0%; }
+
+  .toggle-wrap { margin-bottom: 2rem; }
+  .toggle-btn { width: 100%; text-align: left; background: var(--purple-light); border: 1px solid #CCC9F0; border-radius: var(--radius-sm); padding: .75rem 1rem; font-family: 'Georgia', serif; font-size: 14px; font-weight: 600; color: var(--purple-dark); cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: background .15s; }
+  .toggle-btn:hover { background: #E0DEFC; }
+  .toggle-arrow { font-size: 14px; transition: transform .2s; display: inline-block; }
+  .toggle-arrow.open { transform: rotate(180deg); }
+  .toggle-body { display: none; background: var(--surface); border: 1px solid #CCC9F0; border-top: none; border-radius: 0 0 var(--radius-sm) var(--radius-sm); padding: 1rem 1.25rem; font-size: 14px; line-height: 1.9; color: var(--text-secondary); }
+  .toggle-body.open { display: block; }
+  .toggle-body p { margin-bottom: .75rem; }
+  .toggle-body p:last-child { margin-bottom: 0; }
+  .toggle-body strong { color: var(--text); font-weight: 600; }
+  .ex-row { display: flex; gap: 2rem; flex-wrap: wrap; margin: .5rem 0 .75rem; }
+  .ex-col { flex: 1; min-width: 200px; }
+  .ex-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--text-tertiary); margin-bottom: 4px; }
+  .pill { display: inline-block; padding: 1px 8px; border-radius: 20px; font-size: 13px; font-weight: 700; margin: 0 2px; }
+  .pill-green { background: var(--green-light); color: var(--green-dark); }
+  .pill-amber { background: var(--amber-light); color: var(--amber-dark); }
+
+  .task { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.5rem; transition: border-color .3s; }
+  .task.saved { border-color: var(--green); }
+  .task-header { display: flex; align-items: baseline; gap: 10px; margin-bottom: 1rem; padding-bottom: .75rem; border-bottom: 1px solid var(--border); }
+  .task-num { font-family: 'Courier New', monospace; font-size: 11px; font-weight: 600; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: .08em; background: var(--bg); padding: 2px 8px; border-radius: 20px; border: 1px solid var(--border); white-space: nowrap; }
+  .task-title { font-size: 15px; font-weight: 600; color: var(--text); }
+  .task-check-badge { margin-left: auto; font-size: 12px; color: var(--green); font-weight: 700; display: none; }
+  .task.saved .task-check-badge { display: block; }
+  .instruction { font-size: 14px; color: var(--text-secondary); margin-bottom: 1rem; font-style: italic; }
+
+  .verb-pairs { display: flex; flex-direction: column; }
+  .verb-pair { display: grid; grid-template-columns: 120px 1fr; gap: 8px; align-items: start; padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .verb-pair:last-child { border-bottom: none; padding-bottom: 0; }
+  .verb-label { font-size: 14px; font-weight: 700; padding-top: 5px; font-style: italic; }
+  .pair-sentences { display: flex; flex-direction: column; gap: 7px; }
+  .pair-row { font-size: 14px; display: flex; flex-wrap: wrap; align-items: center; gap: 5px; }
+  .pair-row .fixed { color: var(--text-secondary); }
+
+  .choose-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .choose-list li { font-size: 15px; }
+  .choose-list li .n { color: var(--text-tertiary); font-family: monospace; margin-right: 4px; }
+
+  .fill-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .fill-list li { font-size: 15px; display: flex; flex-wrap: wrap; align-items: center; gap: 5px; }
+  .fill-list li .n { color: var(--text-tertiary); font-family: monospace; }
+  .verb-hint { font-size: 12px; color: var(--text-tertiary); font-style: italic; }
+
+  .dialogue-scroll { background: var(--bg); border-radius: var(--radius-sm); padding: 1rem 1.25rem; font-size: 14px; line-height: 2.1; max-height: 300px; overflow-y: auto; border: 1px solid var(--border); margin-bottom: 1.25rem; }
+  .sp { font-weight: 700; color: var(--text); }
+  .mistake { text-decoration: line-through; color: var(--red); font-size: 13px; }
+  .fix { color: var(--green); font-weight: 700; }
+
+  .analyse-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+  .analyse-list li .qlabel { font-size: 13px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 4px; }
+
+  .speak-box { background: var(--amber-light); border-left: 3px solid var(--amber); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 1rem 1.25rem; margin-top: 1.5rem; }
+  .speak-title { font-size: 12px; font-weight: 700; color: var(--amber-dark); margin-bottom: .75rem; text-transform: uppercase; letter-spacing: .06em; }
+  .speak-q { font-size: 14px; color: var(--amber-dark); margin-bottom: 6px; }
+  .speak-followups { font-size: 14px; color: var(--amber-dark); padding-left: 1.2rem; margin: .5rem 0 .75rem; }
+  .speak-followups li { margin-bottom: 4px; }
+  .speak-box textarea { background: #fff8ee; border-color: #d4a060; width: 100%; }
+
+  select, input[type="text"], textarea { font-family: 'Georgia', serif; font-size: 14px; color: var(--text); background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 3px 8px; outline: none; transition: border-color .15s; }
+  select:focus, input[type="text"]:focus, textarea:focus { border-color: var(--green); }
+  input[type="text"] { width: 130px; }
+  textarea { resize: vertical; min-height: 52px; padding: 8px 10px; border-radius: var(--radius-sm); }
+
+  .btn-row { display: flex; gap: 10px; align-items: center; margin-top: 1.25rem; flex-wrap: wrap; }
+  .check-btn { padding: 8px 22px; font-family: 'Georgia', serif; font-size: 14px; background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: 8px; cursor: pointer; transition: background .15s, border-color .15s; }
+  .check-btn:hover { background: var(--bg); border-color: var(--border-hover); }
+  .submit-btn { padding: 8px 22px; font-family: 'Georgia', serif; font-size: 14px; background: var(--green); color: #fff; border: none; border-radius: 8px; cursor: pointer; transition: background .15s; }
+  .submit-btn:hover { background: var(--green-dark); }
+  .submit-btn:disabled { background: var(--text-tertiary); cursor: not-allowed; }
+
+  .result { display: none; margin-top: 10px; font-size: 13px; line-height: 1.9; padding: .75rem 1rem; border-radius: var(--radius-sm); }
+  .result.show { display: block; }
+  .result.good { background: var(--green-light); color: var(--green-dark); }
+  .result.partial { background: var(--amber-light); color: var(--amber-dark); }
+  .wrong-item { color: var(--red); font-weight: 600; }
+
+  .model-answers { display: none; margin-top: 1rem; background: var(--bg); border-radius: var(--radius-sm); padding: 1rem 1.25rem; font-size: 14px; line-height: 1.9; border: 1px solid var(--border); }
+  .model-answers.show { display: block; }
+  .ma-label { font-weight: 700; color: var(--text); display: block; margin-top: .75rem; }
+  .ma-label:first-child { margin-top: 0; }
+
+  .saved-notice { display: none; margin-top: 8px; font-size: 13px; padding: .5rem .75rem; border-radius: var(--radius-sm); background: var(--green-light); color: var(--green-dark); }
+  .saved-notice.show { display: block; }
+
+  /* SUMMARY SCREEN */
+  .summary { display: none; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2.5rem 2rem; margin-top: 2rem; text-align: center; }
+  .summary.show { display: block; }
+  .summary-emoji { font-size: 48px; margin-bottom: 1rem; }
+  .summary h2 { font-size: 22px; font-weight: normal; margin-bottom: .25rem; }
+  .summary .student-name-big { color: var(--green); font-style: italic; }
+  .summary .total-score { font-size: 48px; font-weight: 700; color: var(--green); margin: 1rem 0 .25rem; font-family: 'Courier New', monospace; }
+  .summary .total-label { font-size: 13px; color: var(--text-tertiary); margin-bottom: 1.5rem; }
+  .summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 1.5rem 0; }
+  .summary-card { background: var(--bg); border-radius: var(--radius-sm); padding: .75rem; border: 1px solid var(--border); }
+  .summary-card .sc-label { font-size: 11px; font-family: 'Courier New', monospace; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 4px; }
+  .summary-card .sc-score { font-size: 20px; font-weight: 700; color: var(--text); }
+  .summary-card .sc-total { font-size: 12px; color: var(--text-tertiary); }
+  .summary-card.perfect .sc-score { color: var(--green); }
+  .summary-message { font-size: 15px; color: var(--text-secondary); line-height: 1.7; margin: 1rem 0; padding: 1rem; background: var(--green-light); border-radius: var(--radius-sm); color: var(--green-dark); }
+
+  footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-tertiary); font-family: 'Courier New', monospace; text-align: center; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- NAME GATE -->
+  <div class="name-gate" id="nameGate">
+    <h2>Before you start</h2>
+    <p>Enter your name so your teacher can see your answers.</p>
+    <div class="name-input-row">
+      <input type="text" id="nameInput" placeholder="Your name, e.g. Anna" />
+      <button class="start-btn" onclick="startHomework()">Start →</button>
+    </div>
+  </div>
+
+  <div id="mainContent" style="display:none;">
+
+    <div class="name-display">Homework for: <strong id="nameLabel"></strong> &nbsp;·&nbsp; <a href="#" onclick="changeName()" style="font-size:12px;color:var(--text-tertiary);">change</a></div>
+
+    <header>
+      <h1><em>-ed / -ing</em> Adjectives</h1>
+      <p class="meta">B1 Homework · Tasks 1–4 · auto-check</p>
+    </header>
+
+    <!-- PROGRESS -->
+    <div class="progress-wrap">
+      <div class="progress-label">
+        <span id="progressText">0 of 4 tasks saved</span>
+        <span id="progressPct">0%</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+
+    <div class="toggle-wrap">
+      <button class="toggle-btn" onclick="toggleExpl(this)">
+        📖 Пояснення правила — натисни, щоб відкрити
+        <span class="toggle-arrow">▼</span>
+      </button>
+      <div class="toggle-body">
+        <p><strong>Як це працює?</strong><br>В англійській є пари прикметників: <span class="pill pill-green">-ed</span> і <span class="pill pill-amber">-ing</span>. Вони утворюються від одного дієслова, але означають різне.</p>
+        <div class="ex-row">
+          <div class="ex-col">
+            <div class="ex-label">-ed → як почувається людина</div>
+            <p>I am <span class="pill pill-green">bored</span>. — Мені нудно.<br>She feels <span class="pill pill-green">excited</span>. — Вона в захваті.<br>He was <span class="pill pill-green">confused</span>. — Він розгубився.</p>
+          </div>
+          <div class="ex-col">
+            <div class="ex-label">-ing → яка є ситуація / річ</div>
+            <p>The film is <span class="pill pill-amber">boring</span>. — Фільм нудний.<br>The news is <span class="pill pill-amber">exciting</span>. — Новини захопливі.<br>The task is <span class="pill pill-amber">confusing</span>. — Завдання незрозуміле.</p>
+          </div>
+        </div>
+        <p><strong>Просте правило:</strong><br>Запитай себе: <em>хто відчуває?</em> → <span class="pill pill-green">-ed</span> &nbsp;·&nbsp; <em>що викликає відчуття?</em> → <span class="pill pill-amber">-ing</span></p>
+        <p><strong>Типова помилка:</strong><br>❌ <em>The film was bored.</em> — фільм не може нудьгувати!<br>✅ <em>The film was boring. I was bored.</em></p>
+        <p><strong>Зверни увагу в діалозі:</strong><br>Mia каже: <em>"I'm exhausting at work"</em> — і сама виправляє: <em>"I mean — exhausted."</em><br><em>Exhausting</em> = ти виснажуєш інших. <em>Exhausted</em> = ти сам виснажений.</p>
+      </div>
+    </div>
+
+    <!-- TASK 1 -->
+    <div class="task" id="taskBox1">
+      <div class="task-header">
+        <span class="task-num">Task 1</span>
+        <span class="task-title">Remember — Complete the pairs</span>
+        <span class="task-check-badge">✓ Saved</span>
+      </div>
+      <p class="instruction">Look at the verb and the sentence. Write the correct -ing or -ed form in the gap.</p>
+      <div class="verb-pairs">
+        <div class="verb-pair"><div class="verb-label">to bore</div><div class="pair-sentences"><div class="pair-row"><span class="fixed">The lesson is</span><input type="text" id="p1a" placeholder="-ing"><span class="fixed">.</span></div><div class="pair-row"><span class="fixed">She is</span><input type="text" id="p1b" placeholder="-ed"><span class="fixed">.</span></div></div></div>
+        <div class="verb-pair"><div class="verb-label">to excite</div><div class="pair-sentences"><div class="pair-row"><span class="fixed">The news is</span><input type="text" id="p2a" placeholder="-ing"><span class="fixed">.</span></div><div class="pair-row"><span class="fixed">The kids are</span><input type="text" id="p2b" placeholder="-ed"><span class="fixed">.</span></div></div></div>
+        <div class="verb-pair"><div class="verb-label">to confuse</div><div class="pair-sentences"><div class="pair-row"><span class="fixed">The instructions are</span><input type="text" id="p3a" placeholder="-ing"><span class="fixed">.</span></div><div class="pair-row"><span class="fixed">I am</span><input type="text" id="p3b" placeholder="-ed"><span class="fixed">.</span></div></div></div>
+        <div class="verb-pair"><div class="verb-label">to exhaust</div><div class="pair-sentences"><div class="pair-row"><span class="fixed">The journey was</span><input type="text" id="p4a" placeholder="-ing"><span class="fixed">.</span></div><div class="pair-row"><span class="fixed">He felt completely</span><input type="text" id="p4b" placeholder="-ed"><span class="fixed">.</span></div></div></div>
+        <div class="verb-pair"><div class="verb-label">to frustrate</div><div class="pair-sentences"><div class="pair-row"><span class="fixed">The situation is</span><input type="text" id="p5a" placeholder="-ing"><span class="fixed">.</span></div><div class="pair-row"><span class="fixed">She looked</span><input type="text" id="p5b" placeholder="-ed"><span class="fixed">.</span></div></div></div>
+        <div class="verb-pair"><div class="verb-label">to interest</div><div class="pair-sentences"><div class="pair-row"><span class="fixed">The book is</span><input type="text" id="p6a" placeholder="-ing"><span class="fixed">.</span></div><div class="pair-row"><span class="fixed">He is</span><input type="text" id="p6b" placeholder="-ed"><span class="fixed">in art.</span></div></div></div>
+        <div class="verb-pair"><div class="verb-label">to motivate</div><div class="pair-sentences"><div class="pair-row"><span class="fixed">The challenge is</span><input type="text" id="p7a" placeholder="-ing"><span class="fixed">.</span></div><div class="pair-row"><span class="fixed">The team feels</span><input type="text" id="p7b" placeholder="-ed"><span class="fixed">.</span></div></div></div>
+      </div>
+      <div class="btn-row">
+        <button class="check-btn" onclick="checkT1()">Check answers</button>
+        <button class="submit-btn" onclick="submitTask(1)" id="submitT1">Save to teacher ↗</button>
+      </div>
+      <div id="r1" class="result"></div>
+      <div id="s1" class="saved-notice"></div>
+    </div>
+
+    <!-- TASK 2 -->
+    <div class="task" id="taskBox2">
+      <div class="task-header">
+        <span class="task-num">Task 2</span>
+        <span class="task-title">Understand — Choose</span>
+        <span class="task-check-badge">✓ Saved</span>
+      </div>
+      <p class="instruction">Choose the correct adjective in each sentence.</p>
+      <ul class="choose-list">
+        <li><span class="n">1.</span> The documentary was really <select id="c1"><option value="">—</option><option>interested</option><option>interesting</option></select>. I watched it twice.</li>
+        <li><span class="n">2.</span> She felt <select id="c2"><option value="">—</option><option>bored</option><option>boring</option></select> during the long meeting.</li>
+        <li><span class="n">3.</span> The instructions were so <select id="c3"><option value="">—</option><option>confused</option><option>confusing</option></select> that nobody knew what to do.</li>
+        <li><span class="n">4.</span> He was <select id="c4"><option value="">—</option><option>exhausted</option><option>exhausting</option></select> after the marathon.</li>
+        <li><span class="n">5.</span> It's <select id="c5"><option value="">—</option><option>excited</option><option>exciting</option></select> news — we're moving to a new city!</li>
+        <li><span class="n">6.</span> I'm not <select id="c6"><option value="">—</option><option>surprised</option><option>surprising</option></select> — I knew this would happen.</li>
+      </ul>
+      <div class="btn-row">
+        <button class="check-btn" onclick="checkT2()">Check answers</button>
+        <button class="submit-btn" onclick="submitTask(2)" id="submitT2">Save to teacher ↗</button>
+      </div>
+      <div id="r2" class="result"></div>
+      <div id="s2" class="saved-notice"></div>
+    </div>
+
+    <!-- TASK 3 -->
+    <div class="task" id="taskBox3">
+      <div class="task-header">
+        <span class="task-num">Task 3</span>
+        <span class="task-title">Apply — Fill in the gaps</span>
+        <span class="task-check-badge">✓ Saved</span>
+      </div>
+      <p class="instruction">Complete each sentence with the correct -ed or -ing form.</p>
+      <ul class="fill-list">
+        <li><span class="n">1.</span> The lecture was three hours long. It was absolutely <input type="text" id="f1"><span class="verb-hint">(exhaust)</span></li>
+        <li><span class="n">2.</span> My sister is <input type="text" id="f2"> about her job interview tomorrow. <span class="verb-hint">(excite)</span></li>
+        <li><span class="n">3.</span> I didn't understand the homework at all. It was really <input type="text" id="f3"><span class="verb-hint">(confuse)</span></li>
+        <li><span class="n">4.</span> Nobody talked at the party. I was so <input type="text" id="f4"><span class="verb-hint">(bore)</span></li>
+        <li><span class="n">5.</span> The ending of the film was completely <input type="text" id="f5"> — nobody expected it. <span class="verb-hint">(surprise)</span></li>
+        <li><span class="n">6.</span> After a 10-hour flight, all the passengers looked totally <input type="text" id="f6"><span class="verb-hint">(exhaust)</span></li>
+        <li><span class="n">7.</span> She gave a really <input type="text" id="f7"> presentation — everyone was paying attention. <span class="verb-hint">(engage)</span></li>
+        <li><span class="n">8.</span> He's been working 12-hour days. No wonder he looks <input type="text" id="f8"><span class="verb-hint">(tire)</span></li>
+        <li><span class="n">9.</span> The new project is really <input type="text" id="f9"> — I love going to work. <span class="verb-hint">(motivate)</span></li>
+        <li><span class="n">10.</span> I was <input type="text" id="f10"> to hear she got the job. I didn't expect it at all. <span class="verb-hint">(amaze)</span></li>
+      </ul>
+      <div class="btn-row">
+        <button class="check-btn" onclick="checkT3()">Check answers</button>
+        <button class="submit-btn" onclick="submitTask(3)" id="submitT3">Save to teacher ↗</button>
+      </div>
+      <div id="r3" class="result"></div>
+      <div id="s3" class="saved-notice"></div>
+    </div>
+
+    <!-- TASK 4 -->
+    <div class="task" id="taskBox4">
+      <div class="task-header">
+        <span class="task-num">Task 4</span>
+        <span class="task-title">Analyse — Work with the dialogue</span>
+        <span class="task-check-badge">✓ Saved</span>
+      </div>
+      <p class="instruction">Read the full dialogue. Then complete the analysis tasks below.</p>
+      <div class="dialogue-scroll">
+        <span class="sp">Jake:</span> Hey, you look tired. Everything okay?<br><br>
+        <span class="sp">Mia:</span> Honestly? I'm <span class="mistake">exhausting</span> <span class="fix">→ exhausted</span> at work lately. I mean — exhausted. Sorry. Yeah, I'm really thinking about leaving.<br><br>
+        <span class="sp">Jake:</span> Wait, seriously? But you love that job. You always talk about how interesting it is.<br><br>
+        <span class="sp">Mia:</span> I used to love it. But right now I'm working on this project that never ends. My manager keeps changing everything. It's so frustrating.<br><br>
+        <span class="sp">Jake:</span> What do you usually do there, again? You design interfaces, right?<br><br>
+        <span class="sp">Mia:</span> Yeah, normally I design mobile apps and work with the dev team. It's actually exciting work. But at the moment my boss is giving all the creative tasks to a new guy and I'm just doing reports. I feel so bored.<br><br>
+        <span class="sp">Jake:</span> That sounds annoying. So what are you thinking?<br><br>
+        <span class="sp">Mia:</span> I'm applying to two companies right now. One is a small startup — they make educational apps. The other one is a big tech firm.<br><br>
+        <span class="sp">Jake:</span> Oh interesting. Which one do you prefer?<br><br>
+        <span class="sp">Mia:</span> The startup seems more exciting but the salary is lower. The big company is more stable. I'm so confused, honestly.<br><br>
+        <span class="sp">Jake:</span> Okay, so — what do you usually look for in a job? Like, what's important to you?<br><br>
+        <span class="sp">Mia:</span> Hmm. I need creative freedom. And good people around me. Money matters too, but it's not everything.<br><br>
+        <span class="sp">Jake:</span> Then the startup sounds right for you. You get bored easily when work is boring — I know you.<br><br>
+        <span class="sp">Mia:</span> Ha. True. My current job is so boring right now that I'm literally falling asleep in meetings.<br><br>
+        <span class="sp">Jake:</span> Do it. Apply properly, prepare well. You're talented. Don't stay somewhere that's making you miserable.<br><br>
+        <span class="sp">Mia:</span> You're right. Actually — are you looking for a new job too? You seem stressed lately.<br><br>
+        <span class="sp">Jake:</span> Me? No, I love my job. Right now I'm working on something really challenging but I find it motivating, not tiring. I'm lucky, I think.<br><br>
+        <span class="sp">Mia:</span> So annoying. I'm jealous.<br><br>
+        <span class="sp">Jake:</span> (laughs) Apply to the startup. Seriously.
+      </div>
+      <ul class="analyse-list">
+        <li><span class="qlabel">1. Find a sentence where someone describes how they feel inside. Copy it and underline the -ed adjective.</span><textarea id="a1" placeholder="e.g. 'I feel so bored.' → bored describes Mia's inner state…"></textarea></li>
+        <li><span class="qlabel">2. Find a sentence where someone describes what a situation or thing is like. Copy it and underline the -ing adjective.</span><textarea id="a2" placeholder="e.g. 'It's so frustrating.' → frustrating describes the situation…"></textarea></li>
+        <li><span class="qlabel">3. Find a present simple sentence about a habit or routine. Copy it.</span><textarea id="a3" placeholder="Copy the sentence. Why is it simple, not continuous?"></textarea></li>
+        <li><span class="qlabel">4. Find a present continuous sentence about something temporary or happening now. Copy it and explain why it's continuous.</span><textarea id="a4" placeholder="Sentence: … Reason: …"></textarea></li>
+        <li><span class="qlabel">5. Mia says "I'm exhausting at work" — then corrects herself. Why is "exhausting" wrong there?</span><textarea id="a5" placeholder="Explain in your own words…"></textarea></li>
+      </ul>
+      <div class="speak-box">
+        <div class="speak-title">💬 Your turn</div>
+        <p class="speak-q"><strong>Are you thinking about changing something in your life right now? Why or why not?</strong></p>
+        <textarea id="sp1" placeholder="Yes / No — because…" style="min-height:70px;"></textarea>
+        <br><br>
+        <p class="speak-q">Answer at least two of these questions too:</p>
+        <ul class="speak-followups">
+          <li>What do you usually look for in a job or a place to study?</li>
+          <li>Is there anything in your life right now that feels boring or frustrating?</li>
+          <li>What is something exciting or motivating that you're working on at the moment?</li>
+          <li>Are you the type of person who gets bored easily, or do you prefer stability?</li>
+          <li>If you were Mia, which company would you choose — the startup or the big firm? Why?</li>
+        </ul>
+        <textarea id="sp2" placeholder="Write your answers here…" style="min-height:100px;"></textarea>
+      </div>
+      <div class="btn-row">
+        <button class="check-btn" onclick="showModel()">Show model answers</button>
+        <button class="submit-btn" onclick="submitTask(4)" id="submitT4">Save to teacher ↗</button>
+      </div>
+      <div id="r4" class="model-answers">
+        <span class="ma-label">1. Someone describes how they feel inside (-ed):</span>"I feel so <strong>bored</strong>." / "I'm <strong>exhausted</strong> at work lately." / "I'm so <strong>confused</strong>, honestly."
+        <span class="ma-label">2. Someone describes a situation or thing (-ing):</span>"It's so <strong>frustrating</strong>." / "It's actually <strong>exciting</strong> work." / "The startup seems more <strong>exciting</strong>."
+        <span class="ma-label">3. Present simple (habit/routine):</span>"Normally I design mobile apps and work with the dev team." / "Money matters too, but it's not everything."
+        <span class="ma-label">4. Present continuous (temporary/right now):</span>"Right now I'm working on this project that never ends." / "I'm applying to two companies right now."
+        <span class="ma-label">5. Why "exhausting" is wrong:</span>"I'm exhausting" = I drain other people's energy. But Mia wants to say she herself is drained → "exhausted".
+      </div>
+      <div id="s4" class="saved-notice"></div>
+    </div>
+
+    <!-- SUMMARY SCREEN -->
+    <div class="summary" id="summaryScreen">
+      <div class="summary-emoji" id="summaryEmoji">🎉</div>
+      <h2>Well done, <span class="student-name-big" id="summaryName"></span>!</h2>
+      <p style="font-size:14px;color:var(--text-tertiary);margin-top:4px;">You've completed all tasks and saved your answers.</p>
+      <div class="total-score" id="totalScore">—</div>
+      <div class="total-label">correct answers (Tasks 1–3)</div>
+      <div class="summary-grid">
+        <div class="summary-card" id="sc1">
+          <div class="sc-label">Task 1</div>
+          <div class="sc-score" id="sc1score">—</div>
+          <div class="sc-total">of 14</div>
+        </div>
+        <div class="summary-card" id="sc2">
+          <div class="sc-label">Task 2</div>
+          <div class="sc-score" id="sc2score">—</div>
+          <div class="sc-total">of 6</div>
+        </div>
+        <div class="summary-card" id="sc3">
+          <div class="sc-label">Task 3</div>
+          <div class="sc-score" id="sc3score">—</div>
+          <div class="sc-total">of 10</div>
+        </div>
+      </div>
+      <div class="summary-message" id="summaryMessage"></div>
+      <p style="font-size:13px;color:var(--text-tertiary);margin-top:1rem;">Your teacher has received all your answers. See you at the next lesson!</p>
+    </div>
+
+  </div><!-- end mainContent -->
+  <footer>-ed / -ing Adjectives · B1 · Homework · Supabase</footer>
+</div>
+
+<script>
+const SUPABASE_URL = 'https://ihfmroksigkimufjxope.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImloZm1yb2tzaWdraW11Zmp4b3BlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0MDk0NjgsImV4cCI6MjA4ODk4NTQ2OH0.hFOWUdgXBpKbqo0uUbuINVv8WGeirZFMZcBejMkbKwU';
+const LESSON = 'ed-ing-adjectives-b1';
+
+let studentName = '';
+const savedTasks = {1:false, 2:false, 3:false, 4:false};
+const taskScores = {1:{ok:0,total:14}, 2:{ok:0,total:6}, 3:{ok:0,total:10}};
+
+function startHomework() {
+  const val = document.getElementById('nameInput').value.trim();
+  if (!val) { alert('Please enter your name first.'); return; }
+  studentName = val;
+  document.getElementById('nameGate').style.display = 'none';
+  document.getElementById('mainContent').style.display = 'block';
+  document.getElementById('nameLabel').textContent = studentName;
+}
+function changeName() {
+  document.getElementById('nameGate').style.display = 'block';
+  document.getElementById('mainContent').style.display = 'none';
+  document.getElementById('nameInput').value = studentName;
+}
+function toggleExpl(btn) {
+  btn.nextElementSibling.classList.toggle('open');
+  btn.querySelector('.toggle-arrow').classList.toggle('open');
+}
+
+const t1ans = {p1a:'boring',p1b:'bored',p2a:'exciting',p2b:'excited',p3a:'confusing',p3b:'confused',p4a:'exhausting',p4b:'exhausted',p5a:'frustrating',p5b:'frustrated',p6a:'interesting',p6b:'interested',p7a:'motivating',p7b:'motivated'};
+const t2ans = {c1:'interesting',c2:'bored',c3:'confusing',c4:'exhausted',c5:'exciting',c6:'surprised'};
+const t3ans = {f1:'exhausting',f2:'excited',f3:'confusing',f4:'bored',f5:'surprising',f6:'exhausted',f7:'engaging',f8:'tired',f9:'motivating',f10:'amazed'};
+
+function scoreTask(ans, ids) {
+  let ok=0, errors=[];
+  ids.forEach(id => {
+    const val = (document.getElementById(id).value||'').trim().toLowerCase();
+    if(val === ans[id]) ok++;
+    else errors.push({id, correct: ans[id]});
+  });
+  return {ok, total: ids.length, errors};
+}
+function showResult(elId, ok, total, errors) {
+  const el = document.getElementById(elId);
+  el.classList.add('show');
+  if(ok === total) { el.className='result show good'; el.innerHTML='✓ All correct! Well done.'; }
+  else {
+    el.className='result show partial';
+    let html=`${ok} / ${total} correct. &nbsp;`;
+    errors.forEach(e => { html+=`<span class="wrong-item">${e.id} → ${e.correct}</span> &nbsp;`; });
+    el.innerHTML=html;
+  }
+}
+function checkT1(){ const r=scoreTask(t1ans,['p1a','p1b','p2a','p2b','p3a','p3b','p4a','p4b','p5a','p5b','p6a','p6b','p7a','p7b']); taskScores[1].ok=r.ok; showResult('r1',r.ok,r.total,r.errors); }
+function checkT2(){ const r=scoreTask(t2ans,['c1','c2','c3','c4','c5','c6']); taskScores[2].ok=r.ok; showResult('r2',r.ok,r.total,r.errors); }
+function checkT3(){ const r=scoreTask(t3ans,['f1','f2','f3','f4','f5','f6','f7','f8','f9','f10']); taskScores[3].ok=r.ok; showResult('r3',r.ok,r.total,r.errors); }
+function showModel(){ document.getElementById('r4').classList.add('show'); }
+
+function updateProgress() {
+  const done = Object.values(savedTasks).filter(Boolean).length;
+  const pct = Math.round(done/4*100);
+  document.getElementById('progressText').textContent = `${done} of 4 tasks saved`;
+  document.getElementById('progressPct').textContent = `${pct}%`;
+  document.getElementById('progressFill').style.width = pct + '%';
+  if (done === 4) showSummary();
+}
+
+function showSummary() {
+  const s = document.getElementById('summaryScreen');
+  s.classList.add('show');
+  s.scrollIntoView({behavior:'smooth', block:'start'});
+  document.getElementById('summaryName').textContent = studentName;
+  const t1ok = taskScores[1].ok, t2ok = taskScores[2].ok, t3ok = taskScores[3].ok;
+  const totalOk = t1ok + t2ok + t3ok;
+  const totalMax = 30;
+  document.getElementById('totalScore').textContent = `${totalOk} / ${totalMax}`;
+  document.getElementById('sc1score').textContent = t1ok;
+  document.getElementById('sc2score').textContent = t2ok;
+  document.getElementById('sc3score').textContent = t3ok;
+  if (t1ok===14) document.getElementById('sc1').classList.add('perfect');
+  if (t2ok===6)  document.getElementById('sc2').classList.add('perfect');
+  if (t3ok===10) document.getElementById('sc3').classList.add('perfect');
+  const pct = totalOk/totalMax;
+  let emoji, msg;
+  if (pct === 1)      { emoji='🏆'; msg="Perfect score! You've mastered -ed and -ing adjectives. See you at the lesson to discuss Task 4!"; }
+  else if (pct >= .8) { emoji='🎉'; msg="Really strong work! Just a few slips — look at the corrections and you'll have it fully nailed."; }
+  else if (pct >= .6) { emoji='💪'; msg="Good effort! Some gaps to work on — let's go through the corrections together at the lesson."; }
+  else                { emoji='📚'; msg="Thanks for doing the homework! There's quite a bit to review — we'll work through it together next lesson. Don't worry!"; }
+  document.getElementById('summaryEmoji').textContent = emoji;
+  document.getElementById('summaryMessage').textContent = msg;
+}
+
+async function sendToSupabase(rows) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/student_answers`, {
+    method:'POST',
+    headers:{'Content-Type':'application/json','apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`,'Prefer':'return=minimal'},
+    body: JSON.stringify(rows)
+  });
+  return res.ok;
+}
+
+function getRows(taskNum) {
+  if (taskNum===1) {
+    const ids=['p1a','p1b','p2a','p2b','p3a','p3b','p4a','p4b','p5a','p5b','p6a','p6b','p7a','p7b'];
+    return ids.map(id=>({student_name:studentName,lesson:LESSON,exercise:'task1',question:id,answer:(document.getElementById(id).value||'').trim(),is_correct:(document.getElementById(id).value||'').trim().toLowerCase()===t1ans[id]}));
+  }
+  if (taskNum===2) {
+    const ids=['c1','c2','c3','c4','c5','c6'];
+    return ids.map(id=>({student_name:studentName,lesson:LESSON,exercise:'task2',question:id,answer:(document.getElementById(id).value||'').trim(),is_correct:(document.getElementById(id).value||'').trim().toLowerCase()===t2ans[id]}));
+  }
+  if (taskNum===3) {
+    const ids=['f1','f2','f3','f4','f5','f6','f7','f8','f9','f10'];
+    return ids.map(id=>({student_name:studentName,lesson:LESSON,exercise:'task3',question:id,answer:(document.getElementById(id).value||'').trim(),is_correct:(document.getElementById(id).value||'').trim().toLowerCase()===t3ans[id]}));
+  }
+  if (taskNum===4) {
+    return ['a1','a2','a3','a4','a5','sp1','sp2'].map(id=>({student_name:studentName,lesson:LESSON,exercise:'task4',question:id,answer:(document.getElementById(id).value||'').trim(),is_correct:null}));
+  }
+  return [];
+}
+
+async function submitTask(num) {
+  if (!studentName) { alert('Please enter your name first.'); return; }
+  const btn = document.getElementById('submitT'+num);
+  const notice = document.getElementById('s'+num);
+  btn.disabled=true; btn.textContent='Saving…';
+  const ok = await sendToSupabase(getRows(num));
+  if (ok) {
+    notice.textContent='✓ Saved!'; notice.className='saved-notice show';
+    btn.textContent='Saved ✓';
+    document.getElementById('taskBox'+num).classList.add('saved');
+    savedTasks[num]=true;
+    updateProgress();
+  } else {
+    notice.textContent='✗ Something went wrong. Try again.';
+    notice.className='saved-notice show';
+    notice.style.background='#FCEBEB'; notice.style.color='#A32D2D';
+    btn.disabled=false; btn.textContent='Save to teacher ↗';
+  }
+}
+</script>
+</body>
+</html>
